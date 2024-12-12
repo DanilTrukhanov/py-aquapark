@@ -54,18 +54,18 @@ class Slide:
     def __init__(
             self,
             name: str,
-            limitation_class: Callable
+            limitation_class: SlideLimitationValidator
     ) -> None:
         self.name = name
         self.limitation_class = limitation_class
 
     def can_access(self, visitor: Visitor) -> bool:
         try:
-            if self.limitation_class(
-                    visitor.age,
-                    visitor.weight,
-                    visitor.height
-            ):
-                return True
+            self.limitation_class(
+                visitor.age,
+                visitor.weight,
+                visitor.height
+            )
+            return True
         except (ValueError, TypeError):
             return False
